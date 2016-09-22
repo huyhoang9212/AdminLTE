@@ -8,24 +8,46 @@ namespace LTE.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //            "~/Scripts/plugins/jquery/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            //            "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.js",
+            //          "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Scripts/plugins/bootstrap/bootstrap.min.js",
+                "~/Scripts/plugins/jquery/jquery-{version}.js",
+                "~/Content/js/app.min.js",
+                "~/Content/js/demo.js",
+                "~/Scripts/respond.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/plugin").Include(
+             "~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js",
+             "~/Scripts/plugins/fastclick/fastclick.js",
+             "~/Scripts/plugins/iCheck/icheck.js"
+         ));
+
+            // CSS
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                    "~/Scripts/plugins/bootstrap/bootstrap.min.css",
+                    "~/Content/css/AdminLTE.min.css",
+                    "~/Scripts/plugins/iCheck/square/blue.css"
+            ));
+
+            // Skin css
+            bundles.Add(new StyleBundle("~/Content/skin").Include(
+                "~/Content/css/skins/_all-skins.min.css"
+                ));
         }
     }
 }

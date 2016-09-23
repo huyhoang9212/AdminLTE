@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
-using LTE.Web.ViewModels.Home;
-
 namespace LTE.Web.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class RolesAdminController : Controller
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+
+        public RolesAdminController()
+        {
+
+        }
+
+        public RolesAdminController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        {
+            UserManager = userManager;
+            RoleManager = roleManager;
+        }
 
         public ApplicationUserManager UserManager
         {
@@ -32,40 +42,11 @@ namespace LTE.Web.Controllers
             private set { _roleManager = value; }
         }
 
-        public HomeController()
-        {
-
-        }
-
-        public HomeController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
-        {
-            UserManager = userManager;
-            RoleManager = roleManager;
-        }
-
+        // GET: RolesAdmin
         public ActionResult Index()
         {
-            var viewModel = new IndexHomeViewModel()
-            {
-                NumberUser = UserManager.Users.Count(),
-                NumberRole = RoleManager.Roles.Count()
-            };
-            
-            return View(viewModel);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var roles = RoleManager.Roles.ToList();
+            return View(roles);
         }
     }
 }

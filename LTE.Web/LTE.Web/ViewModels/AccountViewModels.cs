@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LTE.Web.Models
+namespace LTE.Web.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

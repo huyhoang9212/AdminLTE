@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LTE.Web.Models;
-
+using LTE.Web.ViewModels;
 namespace LTE.Web.Controllers
 {
     [Authorize]

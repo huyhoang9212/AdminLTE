@@ -1,6 +1,7 @@
-﻿@model LTE.Web.ViewModels.Home.IndexHomeViewModel
+﻿@model List<LTE.Web.Models.ApplicationRole>
+
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
 
 <div class="row">
@@ -8,8 +9,8 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>@Model.NumberUser</h3>
-                <p>Users</p>
+                <h3>@Model.Count</h3>
+                <p>Roles</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -22,8 +23,8 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>@Model.NumberUser<sup style="font-size: 20px">active</sup></h3>
-                <p>Users</p>
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <p>Bounce Rate</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>

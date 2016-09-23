@@ -86,6 +86,12 @@ namespace LTE.Web
             }
             return manager;
         }
+
+        public int CountAllUser()
+        {
+            return Users.Count();
+        }
+
     }
 
     public class ApplicationRoleManager : RoleManager<ApplicationRole>

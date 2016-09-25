@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using LTE.Web.ViewModels.Home;
+using LTE.Core;
+using LTE.Data;
+using LTE.Services;
 
 namespace LTE.Web.Controllers
 {
@@ -13,6 +16,8 @@ namespace LTE.Web.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private ICategoryService _categoryService;
+        private IUnitOfWork _unitOfWork;
 
         public ApplicationUserManager UserManager
         {
@@ -31,16 +36,11 @@ namespace LTE.Web.Controllers
             }
             private set { _roleManager = value; }
         }
-
-        public HomeController()
-        {
-
-        }
-
-        public HomeController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
-        {
-            UserManager = userManager;
-            RoleManager = roleManager;
+        
+        public HomeController( ICategoryService service, IUnitOfWork unitOfWork)
+        {          
+            _categoryService = service;
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
@@ -48,7 +48,8 @@ namespace LTE.Web.Controllers
             var viewModel = new IndexHomeViewModel()
             {
                 NumberUser = UserManager.Users.Count(),
-                NumberRole = RoleManager.Roles.Count()
+                NumberRole = RoleManager.Roles.Count(),
+                NumberCategory = _categoryService.GetAllCategories().Count()
             };
             
             return View(viewModel);

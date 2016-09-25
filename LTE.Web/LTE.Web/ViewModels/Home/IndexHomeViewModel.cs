@@ -10,5 +10,7 @@ namespace LTE.Web.ViewModels.Home
         public int NumberRole { get; set; }
 
         public int NumberUser { get; set; }
+
+        public int NumberCategory { get; set; }
     }
 }

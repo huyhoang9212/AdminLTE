@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDbContext.cs" />
-    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="LTEDbContext.cs" />
     <Compile Include="Mapping\CategoryMapping.cs" />
     <Compile Include="Migrations\201609251141256_AddCategory.cs" />

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using LTE.Web.ViewModels.Home;
 using LTE.Core;
-using LTE.Data;
+using LTE.Core.Interface;
 using LTE.Services;
 
 namespace LTE.Web.Controllers
@@ -16,8 +16,8 @@ namespace LTE.Web.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
-        private ICategoryService _categoryService;
-        private IUnitOfWork _unitOfWork;
+        private readonly ICategoryService _categoryService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ApplicationUserManager UserManager
         {
@@ -49,7 +49,8 @@ namespace LTE.Web.Controllers
             {
                 NumberUser = UserManager.Users.Count(),
                 NumberRole = RoleManager.Roles.Count(),
-                NumberCategory = _categoryService.GetAllCategories().Count()
+                NumberCategory = _categoryService.GetAllCategories().Count(),
+                InstanceDbContextId = _unitOfWork.InstanceId()
             };
             
             return View(viewModel);

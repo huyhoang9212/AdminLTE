@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LTE.Core.Data;
+
 using System.Data.Entity;
 using LTE.Core.Domain;
 using LTE.Core;
 using LTE.Data.Mapping;
+using LTE.Core.Interface;
+using LTE.Core.Infrastructure;
 
 namespace LTE.Data
 {
     public class LTEDbContext : DbContext, IDbContext
     {
+        private readonly Guid _instanceId;
         public LTEDbContext()
             : base("name=LTEDbContext")
         {
-
+            _instanceId = Guid.NewGuid();
         }
 
-        public new IDbSet<T> Set<T>() where T : BaseEntity
+        public Guid InstanceId
         {
-            return base.Set<T>();
+            get { return _instanceId; }
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,6 +33,14 @@ namespace LTE.Data
             modelBuilder.Configurations.Add(new CategoryMapping());
         }
 
-        DbSet<Category> Categories { get; set; }
+        public void SyncObjectState<T>(T entity) where T : BaseEntity, IObjectState
+        {
+            this.Entry(entity).State = ObjectStateHelper.ConvertState(entity.ObjectState);
+        }
+
+        IDbSet<T> IDbContext.Set<T>()
+        {
+            return base.Set<T>();
+        }
     }
 }

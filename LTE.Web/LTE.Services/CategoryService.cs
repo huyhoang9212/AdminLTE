@@ -1,4 +1,4 @@
-﻿using LTE.Core.Data;
+﻿using LTE.Core.Interface;
 using LTE.Core.Domain;
 using LTE.Data;
 using System;
@@ -6,18 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LTE.Core;
 
 namespace LTE.Services
 {
     public interface ICategoryService
     {
         Category FindCategoryById(object id);
-
         void InsertCategory(Category category);
         void UpdateCategory(Category category);
-
         void DeleteCategory(Category category);
-
         IQueryable<Category> GetAllCategories();
     }
 
@@ -27,6 +25,7 @@ namespace LTE.Services
         private IRepository<Category> _repository;
         private IUnitOfWork _unitOfWork;
 
+        
         public CategoryService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

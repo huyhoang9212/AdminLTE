@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using LTE.Core;
+using LTE.Core.Interface;
 namespace LTE.Web.Ioc
 {
     public class LTEIocContainer
@@ -20,8 +21,9 @@ namespace LTE.Web.Ioc
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             // dependencies
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
-            builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
+            builder.RegisterType<LTEDbContext>().As<IDbContext>().InstancePerRequest();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
             
             // set dependency resolver
             var container = builder.Build();

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity;
+using LTE.Core;
 using LTE.Core;
 
-namespace LTE.Data
+namespace LTE.Core.Interface
 {
-    public interface IDbContext
+    public interface IUnitOfWork
     {
         int SaveChanges();
+        IRepository<T> GetRepository<T>() where T : BaseEntity;
 
-        IDbSet<T> Set<T>() where T : BaseEntity;
+        string InstanceId();
     }
 }

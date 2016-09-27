@@ -4,20 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTE.Core;
-using LTE.Core.Data;
+using LTE.Core.Interface;
 using System.Collections;
 
 namespace LTE.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private LTEDbContext _dbContext;
+        public readonly IDbContext _dbContext;
         private readonly Hashtable _hashRepositories;
 
-        public UnitOfWork()
+        public UnitOfWork(IDbContext dbContext)
         {
-            _dbContext = new LTEDbContext();
+            // _dbContext = new LTEDbContext();
+            _dbContext = dbContext;
             _hashRepositories = new Hashtable();
+        }
+
+        public string InstanceId()
+        {
+            return _dbContext.InstanceId.ToString();
         }
 
         public IRepository<T> GetRepository<T>() where T : BaseEntity

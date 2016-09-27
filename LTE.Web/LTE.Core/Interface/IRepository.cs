@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LTE.Core.Data
+namespace LTE.Core.Interface
 {
     public partial interface IRepository<T> where T : BaseEntity
     {
@@ -19,5 +19,7 @@ namespace LTE.Core.Data
         IQueryable<T> Table { get; }
 
         IQueryable<T> TableNoTracking { get; }
+
+       // void SyncObjectState(T entity);
     }
 }

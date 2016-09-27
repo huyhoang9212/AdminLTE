@@ -12,5 +12,7 @@ namespace LTE.Web.ViewModels.Home
         public int NumberUser { get; set; }
 
         public int NumberCategory { get; set; }
+
+        public string InstanceDbContextId { get; set; }
     }
 }

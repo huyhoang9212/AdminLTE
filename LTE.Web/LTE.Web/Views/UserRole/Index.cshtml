@@ -4,6 +4,10 @@
     ViewBag.Title = "User roles";
 }
 
+<div>
+    <a href="@Url.Action("Create","UserRole")" class="btn btn-primary">Add new role</a>
+</div>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -26,7 +30,7 @@
                         <th>Name</th>
                         <th>Descriptions</th>
                         <th width="100px">Users</th>
-                        <th width="40px">Action</th>
+                        <th width="180px">Action</th>
                     </tr>
                     @{ int i = 1;}
                     @foreach (var role in Model)
@@ -36,7 +40,10 @@
                             <td>@role.Name</td>
                             <td>@role.Description</td>
                             <td><span class="label label-success">@role.Users.Count</span></td>
-                            <td><a href="@Url.Action("Edit", "UserRole", new { id = role.Id})">Edit</a></td>
+                            <td>
+                                <a href="@Url.Action("Edit", "UserRole", new { id = role.Id})">Edit</a> |
+                                <a href="@Url.Action("Delete", "UserRole", new { id = role.Id})">Delete</a>
+                            </td>
                         </tr>
                         i++;
                     }

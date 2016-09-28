@@ -1175,6 +1175,7 @@
     <Content Include="Views\Shared\_ControlSidebar.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />
     <Content Include="Views\UserRole\Edit.cshtml" />
+    <Content Include="Views\UserRole\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

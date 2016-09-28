@@ -6,8 +6,10 @@ namespace LTE.Web.ViewModels.UserRoles
     {
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide a name")]
         public string Name { get; set; }
+
+        [Required]
         public string Description { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model LTE.Web.ViewModels.UserRoles.ApplicationRoleViewModel
 @{
-    ViewBag.Title = "Edit user role detail - " + Model.Name;
+    ViewBag.Title = "Add new role";
 }
 
 <div class="col-md-12">
@@ -11,7 +11,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        @using (Html.BeginForm("Edit", "UserRole", null, FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Create", "UserRole", null, FormMethod.Post, new { @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.Id)
@@ -31,17 +31,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-2">
-                        @Html.ValidationSummary(true,null, new { @class="text-danger"})
-                    </div>
+                    @Html.ValidationSummary(true, null, new { @class = "text-danger" })
                 </div>
             </div>
-            <!-- /.box-body -->
+                <!-- /.box-body -->
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-info" href="@Url.Action("Index","UserRole")">Back</a>
+                    <a class="btn btn-info" href="@Url.Action("Index","UserRole")">Cancel</a>
                 </div>
-            <!-- /.box-footer -->
+                <!-- /.box-footer -->
         }
 
     </div>
@@ -49,3 +47,8 @@
     <!-- general form elements disabled -->
     <!-- /.box -->
 </div>
+
+@section Scripts{
+
+}
+

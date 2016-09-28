@@ -13,11 +13,6 @@ namespace LTE.Web.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
 
-        public UserRoleController()
-        {
-
-        }
-
         public ApplicationUserManager UserManager
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
@@ -37,6 +32,45 @@ namespace LTE.Web.Controllers
             return View(roles);
         }
 
+        public ActionResult Create()
+        {
+            var roleVm = new ApplicationRoleViewModel();
+            return View(roleVm);
+        }
+
+        [HttpPost]
+        public ActionResult Create(ApplicationRoleViewModel roleVm)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isExitsRole = RoleManager.RoleExists(roleVm.Name);
+                if (isExitsRole)
+                {
+                    ModelState.AddModelError("Name", string.Format("The name {0} is already taken.", roleVm.Name));
+                    return View(roleVm);
+                }
+
+                var role = new ApplicationRole { Name = roleVm.Name, Description = roleVm.Description };
+                var result = RoleManager.Create(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                AddModelError(result);
+            }
+
+            return View(roleVm);
+        }
+
+        private void AddModelError(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
         public ActionResult Edit(string id)
         {
             var role = RoleManager.FindById(id);
@@ -54,12 +88,36 @@ namespace LTE.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateRole(ApplicationRoleViewModel roleVm)
+        public ActionResult Edit(ApplicationRoleViewModel roleVm)
         {
-            var role = RoleManager.FindById(roleVm.Id);
-            role.Name = roleVm.Name;
-            role.Description = roleVm.Description;
-            RoleManager.Update(role) ;
+            if (ModelState.IsValid)
+            {
+                bool isExitsRole = RoleManager.Roles.Any(r => r.Id != roleVm.Id && r.Name == roleVm.Name);
+                if (isExitsRole)
+                {
+                    ModelState.AddModelError("Name", string.Format("The name {0} is already taken.", roleVm.Name));
+                    return View(roleVm);
+                }
+
+                var role = RoleManager.FindById(roleVm.Id);
+                role.Name = roleVm.Name;
+                role.Description = roleVm.Description;
+                var result = RoleManager.Update(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                AddModelError(result);
+            }
+
+            return View(roleVm);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            var role = RoleManager.FindById(id);
+            RoleManager.Delete(role);
             return RedirectToAction("Index");
         }
     }

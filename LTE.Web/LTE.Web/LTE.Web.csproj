@@ -193,9 +193,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Ioc\LTEIocContainer.cs" />
-    <Compile Include="Migrations\201609251139565_InitIdentity.cs" />
-    <Compile Include="Migrations\201609251139565_InitIdentity.Designer.cs">
-      <DependentUpon>201609251139565_InitIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\201609290434366_Init.cs" />
+    <Compile Include="Migrations\201609290434366_Init.Designer.cs">
+      <DependentUpon>201609290434366_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -207,6 +207,7 @@
     <Compile Include="ViewModels\UserRoles\ApplicationRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\js\customValidation.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap-theme.css" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.css" />
@@ -1188,11 +1189,6 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609251139565_InitIdentity.resx">
-      <DependentUpon>201609251139565_InitIdentity.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\LTE.Core\LTE.Core.csproj">
       <Project>{57edf705-ccd5-44af-81fb-b60d061a4166}</Project>
       <Name>LTE.Core</Name>
@@ -1205,6 +1201,11 @@
       <Project>{5ff5c526-1a8f-422d-a215-32d48006ecac}</Project>
       <Name>LTE.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609290434366_Init.resx">
+      <DependentUpon>201609290434366_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using System.Linq;
 using LTE.Web.Models;
 using LTE.Web.ViewModels.UserRoles;
+using System;
+
 namespace LTE.Web.Controllers
 {
     [Authorize(Roles = "admin")]
@@ -73,6 +75,7 @@ namespace LTE.Web.Controllers
 
         public ActionResult Edit(string id)
         {
+            ViewBag.ErrorMessage = TempData["errorMessage"] != null ? TempData["errorMessage"].ToString() : null;
             var role = RoleManager.FindById(id);
             if (role == null)
             {
@@ -84,12 +87,14 @@ namespace LTE.Web.Controllers
                 Name = role.Name,
                 Description = role.Description
             };
+
             return View(roleVm);
         }
 
         [HttpPost]
         public ActionResult Edit(ApplicationRoleViewModel roleVm)
         {
+           
             if (ModelState.IsValid)
             {
                 bool isExitsRole = RoleManager.Roles.Any(r => r.Id != roleVm.Id && r.Name == roleVm.Name);
@@ -114,10 +119,25 @@ namespace LTE.Web.Controllers
             return View(roleVm);
         }
 
+        [HttpPost]
         public ActionResult Delete(string id)
         {
             var role = RoleManager.FindById(id);
-            RoleManager.Delete(role);
+            try
+            {
+                if(role.IsSytemRole == true)
+                {
+                    TempData["errorMessage"] = "Can not delete system role.";
+                    return RedirectToAction("Edit", new { id = role.Id});
+                }
+
+                RoleManager.Delete(role);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Edit", new { id = role.Id });
+            }
+
             return RedirectToAction("Index");
         }
     }

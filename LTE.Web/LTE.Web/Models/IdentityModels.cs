@@ -23,8 +23,6 @@ namespace LTE.Web.Models
 
     public class ApplicationRole : IdentityRole
     {
-      
-
         public ApplicationRole()
             :base()
         {
@@ -38,6 +36,8 @@ namespace LTE.Web.Models
         }
 
         public string Description { get; set; }
+
+        public bool IsSytemRole { get; set; }
     }
 
 

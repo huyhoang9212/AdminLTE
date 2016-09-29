@@ -3,7 +3,7 @@ namespace LTE.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitIdentity : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -14,6 +14,7 @@ namespace LTE.Web.Migrations
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false, maxLength: 256),
                         Description = c.String(),
+                        IsSytemRole = c.Boolean(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)

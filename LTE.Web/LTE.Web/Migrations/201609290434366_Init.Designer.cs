@@ -7,13 +7,13 @@ namespace LTE.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitIdentity : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609251139565_InitIdentity"; }
+            get { return "201609290434366_Init"; }
         }
         
         string IMigrationMetadata.Source

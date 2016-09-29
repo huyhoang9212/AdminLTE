@@ -50,11 +50,16 @@ namespace LTE.Web.Migrations
             var roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
 
             var roles = new List<ApplicationRole>();
-            roles.Add(new ApplicationRole() { Name = "admin", Description = "Role for admin only" });
-            roles.Add(new ApplicationRole() { Name = "registered", Description = "Registed user" });
-            roles.Add(new ApplicationRole() { Name = "vendors", Description = "vendors" });
+            roles.Add(new ApplicationRole() { Name = "admin", Description = "Role for admin only",IsSytemRole = true });
+            roles.Add(new ApplicationRole() { Name = "registered", Description = "Registed user",IsSytemRole = true });
+            roles.Add(new ApplicationRole() { Name = "vendors", Description = "vendors" ,IsSytemRole = true});
             roles.Add(new ApplicationRole() { Name = "forum-moderators", Description = "Manage forum" });
-            roles.Add(new ApplicationRole() { Name = "guests", Description = "Not authorised user" });
+            roles.Add(new ApplicationRole() { Name = "guests", Description = "Not authorised user", IsSytemRole = true });
+            for(int i=0;i < 20;i++)
+            {
+                var role = new ApplicationRole() { Name="Role" + i, Description="Description"+i,IsSytemRole=false};
+                roles.Add(role);
+            }
 
             foreach (var role in roles)
             {

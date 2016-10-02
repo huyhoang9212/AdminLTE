@@ -4,57 +4,70 @@
     ViewBag.Title = "User roles";
 }
 
-<div>
-    <a href="@Url.Action("Create","UserRole")" class="btn btn-primary">Add new role</a>
+   <!-- Content Header (Page header) -->
+<div class="content-header">
+    <h1>
+        @ViewBag.Title
+        <small>@ViewBag.Description</small>
+    </h1>
 </div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Manage Roles</h3>
-                <div class="box-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+<!-- Main content -->
+<div class="content">
+    <div>
+        <a href="@Url.Action("Create","UserRole")" class="btn btn-primary">Add new role</a>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Manage Roles</h3>
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-bordered">
-                    <tr>
-                        <th width="10px">#</th>
-                        <th>Name</th>
-                        <th>Descriptions</th>
-                        <th width="100px">Users</th>
-                        <th width="180px">Action</th>
-                    </tr>
-                    @{ int i = 1;}
-                    @foreach (var role in Model)
-                    {
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-bordered">
                         <tr>
-                            <td>@i</td>
-                            <td>@role.Name</td>
-                            <td>@role.Description</td>
-                            <td><span class="label label-success">@role.Users.Count</span></td>
-                            <td>
-                                <a href="@Url.Action("Edit", "UserRole", new { id = role.Id})">Edit</a> |
-                                <a href="@Url.Action("Delete", "UserRole", new { id = role.Id})">Delete</a>
-                            </td>
+                            <th width="10px">#</th>
+                            <th>Name</th>
+                            <th>Descriptions</th>
+                            <th width="100px">Users</th>
+                            <th width="180px">Action</th>
                         </tr>
-                        i++;
-                    }
+                        @{ int i = 1;}
+                        @foreach (var role in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@role.Name</td>
+                                <td>@role.Description</td>
+                                <td><span class="label label-success">@role.Users.Count</span></td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "UserRole", new { id = role.Id})">Edit</a> |
+                                    <a href="@Url.Action("Delete", "UserRole", new { id = role.Id})">Delete</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
 
 
-                </table>
+                    </table>
+                </div>
+                <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
+            <!-- /.box -->
         </div>
-        <!-- /.box -->
     </div>
 </div>
+
+
 
 

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTE.Test", "LTE.Test\LTE.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTE.Services", "LTE.Services\LTE.Services.csproj", "{5FF5C526-1A8F-422D-A215-32D48006ECAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTE.Web.Framework", "LTE.Web.Framework\LTE.Web.Framework.csproj", "{968FAF61-9A86-4093-A2CC-EB67BFCA3695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5FF5C526-1A8F-422D-A215-32D48006ECAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FF5C526-1A8F-422D-A215-32D48006ECAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FF5C526-1A8F-422D-A215-32D48006ECAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968FAF61-9A86-4093-A2CC-EB67BFCA3695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968FAF61-9A86-4093-A2CC-EB67BFCA3695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968FAF61-9A86-4093-A2CC-EB67BFCA3695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968FAF61-9A86-4093-A2CC-EB67BFCA3695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

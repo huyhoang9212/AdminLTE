@@ -10,7 +10,7 @@ using System;
 namespace LTE.Web.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class UserRoleController : Controller
+    public class UserRoleController : BaseAdminController
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
@@ -55,7 +55,8 @@ namespace LTE.Web.Controllers
                 var role = new ApplicationRole { Name = roleVm.Name, Description = roleVm.Description };
                 var result = RoleManager.Create(role);
                 if (result.Succeeded)
-                {
+                {                   
+                    SusscessNotification(string.Format("The role: {0} has been created successfully.", role.Name));
                     return RedirectToAction("Index");
                 }
 
@@ -94,7 +95,7 @@ namespace LTE.Web.Controllers
         [HttpPost]
         public ActionResult Edit(ApplicationRoleViewModel roleVm)
         {
-           
+
             if (ModelState.IsValid)
             {
                 bool isExitsRole = RoleManager.Roles.Any(r => r.Id != roleVm.Id && r.Name == roleVm.Name);
@@ -125,10 +126,10 @@ namespace LTE.Web.Controllers
             var role = RoleManager.FindById(id);
             try
             {
-                if(role.IsSytemRole == true)
+                if (role.IsSytemRole == true)
                 {
                     TempData["errorMessage"] = "Can not delete system role.";
-                    return RedirectToAction("Edit", new { id = role.Id});
+                    return RedirectToAction("Edit", new { id = role.Id });
                 }
 
                 RoleManager.Delete(role);

@@ -7,14 +7,14 @@ using System.Web.Mvc;
 
 namespace LTE.Web.ViewModels.UserRoles
 {
-    public class ApplicationRoleViewModel
+    public class ApplicationRoleViewModel : BaseViewModel
     {
         public ApplicationRoleViewModel()
         {
             StartDate = DateTime.Today;
             EndDate = DateTime.Today.AddDays(1);
         }
-        public string Id { get; set; }
+        //public string Id { get; set; }
 
         [Required(ErrorMessage = "Please provide a name")]
         public string Name { get; set; }

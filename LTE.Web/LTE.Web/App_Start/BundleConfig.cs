@@ -33,23 +33,24 @@ namespace LTE.Web
 
 
             //
-  //          < !--InputMask-- >
-//< script src = "../../plugins/input-mask/jquery.inputmask.js" ></ script >
- //< script src = "../../plugins/input-mask/jquery.inputmask.date.extensions.js" ></ script >
-  //< script src = "../../plugins/input-mask/jquery.inputmask.extensions.js" ></ script >
-               bundles.Add(new ScriptBundle("~/bundles/plugin").Include(
-             "~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js",
-             "~/Scripts/plugins/fastclick/fastclick.js",
-             "~/Scripts/plugins/iCheck/icheck.js",
-             "~/Scripts/plugins/input-mask/jquery.inputmask.js",
-             "~/Scripts/plugins/input-mask/jquery.inputmask.date.extensions.js",
-             "~/Scripts/plugins/input-mask/jquery.inputmask.extensions.js"
-         ));
+            //          < !--InputMask-- >
+            //< script src = "../../plugins/input-mask/jquery.inputmask.js" ></ script >
+            //< script src = "../../plugins/input-mask/jquery.inputmask.date.extensions.js" ></ script >
+            //< script src = "../../plugins/input-mask/jquery.inputmask.extensions.js" ></ script >
+            bundles.Add(new ScriptBundle("~/bundles/plugin").Include(
+                  "~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js",
+                  "~/Scripts/plugins/fastclick/fastclick.js",
+                  "~/Scripts/plugins/iCheck/icheck.js",
+                  "~/Scripts/plugins/input-mask/jquery.inputmask.js",
+                  "~/Scripts/plugins/input-mask/jquery.inputmask.date.extensions.js",
+                  "~/Scripts/plugins/input-mask/jquery.inputmask.extensions.js"
+            ));
 
             // CSS
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Scripts/plugins/bootstrap/bootstrap.min.css",
                     "~/Content/css/AdminLTE.min.css",
+                    "~/Content/Site.css",
                     "~/Scripts/plugins/iCheck/square/blue.css"
             ));
 

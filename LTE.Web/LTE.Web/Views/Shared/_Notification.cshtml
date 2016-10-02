@@ -1,0 +1,37 @@
+﻿@using LTE.Web.Framework.UI
+
+
+@{
+    var successMessages = new List<string>();
+    if (TempData[string.Format("lte.notification.{0}", NotifyType.Success)] != null)
+    {
+        successMessages.AddRange(TempData[string.Format("lte.notification.{0}", NotifyType.Success)] as IList<string>);
+    }
+
+    var errorMessages = new List<string>();
+    if (TempData[string.Format("lte.notification.{0}", NotifyType.Error)] != null)
+    {
+        errorMessages.AddRange(TempData[string.Format("lte.notification.{0}", NotifyType.Error)] as IList<string>);
+    }
+}
+
+@foreach (var successMessage in successMessages)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Success!</strong> @successMessage
+    </div>
+}
+
+@foreach (var errorMessage in errorMessages)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Error!</strong> @errorMessage
+    </div>
+}
+

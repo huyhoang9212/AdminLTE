@@ -105,6 +105,8 @@ namespace LTE.Web
         {
             return new ApplicationRoleManager(new RoleStore<ApplicationRole>(context.Get<ApplicationDbContext>()));
         }
+
+        
     }
 
     // Configure the application sign-in manager which is used in this application.

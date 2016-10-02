@@ -6,6 +6,7 @@ using System.Linq;
 using LTE.Web.Models;
 using LTE.Web.ViewModels.UserRoles;
 using System;
+using System.Collections;
 
 namespace LTE.Web.Controllers
 {
@@ -55,7 +56,7 @@ namespace LTE.Web.Controllers
                 var role = new ApplicationRole { Name = roleVm.Name, Description = roleVm.Description };
                 var result = RoleManager.Create(role);
                 if (result.Succeeded)
-                {                   
+                {
                     SusscessNotification(string.Format("The role: {0} has been created successfully.", role.Name));
                     return RedirectToAction("Index");
                 }
@@ -123,23 +124,27 @@ namespace LTE.Web.Controllers
         [HttpPost]
         public ActionResult Delete(string id)
         {
-            var role = RoleManager.FindById(id);
             try
             {
-                if (role.IsSytemRole == true)
-                {
-                    TempData["errorMessage"] = "Can not delete system role.";
-                    return RedirectToAction("Edit", new { id = role.Id });
-                }
+                var role = RoleManager.FindById(id);
+                var result = RoleManager.DeleteRole(role);
 
-                RoleManager.Delete(role);
+                if (result.Succeeded)
+                {
+                    SusscessNotification("Deleted success.");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ErrorNotification(result.Errors);
+                    return RedirectToAction("Edit", new { id = id });
+                }
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Edit", new { id = role.Id });
+                ErrorNotification(ex.Message);
+                return RedirectToAction("Edit", new { id = id });
             }
-
-            return RedirectToAction("Index");
         }
     }
 }

@@ -4,104 +4,77 @@
     ViewBag.Title = "Edit user role detail - " + Model.Name;
 }
 
-<div class="row" id="error">
-    <div class="col-md-12">
-        <div class="alert alert-danger alert-dismissible">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            @ViewBag.ErrorMessage
-        </div>
-    </div>
+<div class="content-header">
+    <h1>
+        Edit user role
+        <small>@ViewBag.Description</small>
+    </h1>
 </div>
 
-<div class="col-md-12">
-    <!-- Horizontal Form -->
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title" style="">Role : Role10 123<br></h3>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger pull-right" data-toggle="modal" 
-                    data-target="#userRoleDeleteConfirmation" data-whatever="Role10">
-                Delete role
-            </button>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="">@Model.Name<br></h3>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger pull-right" data-toggle="modal"
+                            data-target="#userRoleDeleteConfirmation" data-whatever="Role10">
+                        Delete role
+                    </button>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("Edit", "UserRole", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Role name" })
+                                @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Role description" })
+                                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Is system role</label>
+                            <div class="col-sm-10">
+                                <label class="control-label">@Model.IsSytemRole.ToString()</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a class="btn btn-info" href="@Url.Action("Index","UserRole")">Back</a>
+                    </div>
+                }
+            </div>
         </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        @using (Html.BeginForm("Edit", "UserRole", null, FormMethod.Post, new { @class = "form-horizontal" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(m => m.Id)
-            <div class="box-body">
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
-                    <div class="col-sm-10">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Role name" })
-                        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
-                    <div class="col-sm-10">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Role description" })
-                        @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">Is system role</label>
-                    <div class="col-sm-10">
-                        <label class="control-label">@Model.IsSytemRole.ToString()</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2">
-                        @Html.ValidationSummary(true, null, new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-info" href="@Url.Action("Index","UserRole")">Back</a>
-            </div>
-        }
     </div>
+
 </div>
+
 
 @Html.DeleteConfirmation("userRoleDeleteConfirmation")
-<!-- Modal -->
-@*<div class="modal fade modal-warning" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header danger">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Delete role - @Model.Name?</h4>
-            </div>
-            @using (Html.BeginForm("Delete", "UserRole", new { @id = Model.Id }, FormMethod.Post))
-            {
-                <div class="modal-body">
-                    <span>Do you want to delete role: @Model.Name?</span>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No, cancel</button>
-                </div>
-            }
-
-        </div>
-    </div>
-</div>*@
 
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            console.log('ready');
-            var error = '@ViewBag.ErrorMessage';
-            console.log(error);
-            if (error) {
-                $("#error").show();
-            }
-            else {
-                $("#error").hide();
-            }
+
         });
 
         $('#myModal').on('show.bs.modal', function (event) {

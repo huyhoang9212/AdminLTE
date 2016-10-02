@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
+﻿using LTE.Core;
+using LTE.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using LTE.Web.Models;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace LTE.Web
 {
@@ -106,7 +104,21 @@ namespace LTE.Web
             return new ApplicationRoleManager(new RoleStore<ApplicationRole>(context.Get<ApplicationDbContext>()));
         }
 
-        
+        public IdentityResult DeleteRole(ApplicationRole role)
+        {
+            if(role == null)
+            {
+                throw new ArgumentNullException("role");
+            }
+
+            if (role.IsSytemRole)
+            {
+                throw new LTException("System role could not be deleted.");
+            }
+            
+            IdentityResult result = this.Delete(role);
+            return result;
+        }
     }
 
     // Configure the application sign-in manager which is used in this application.

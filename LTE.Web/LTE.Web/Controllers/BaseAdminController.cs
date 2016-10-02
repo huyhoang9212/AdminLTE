@@ -15,6 +15,14 @@ namespace LTE.Web.Controllers
             AddNotification(NotifyType.Success, message);
         }
 
+        public virtual void ErrorNotification(IEnumerable<string> messages)
+        {
+            foreach(var message in messages)
+            {
+                AddNotification(NotifyType.Error, message);
+            }
+        }
+
         public virtual void ErrorNotification(string message)
         {
             AddNotification(NotifyType.Error, message);

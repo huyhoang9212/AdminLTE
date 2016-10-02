@@ -58,6 +58,7 @@
     <Compile Include="Interface\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\ObjectState.cs" />
     <Compile Include="Infrastructure\ObjectStateHelper.cs" />
+    <Compile Include="LTException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LTE.Web.Models
 {
@@ -20,7 +22,9 @@ namespace LTE.Web.Models
 
         public string Company { get; set; }
 
-
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Gender { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -28,6 +32,7 @@ namespace LTE.Web.Models
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // DefaultAuthenticationTypes.ApplicationCookie
             // Add custom user claims here
+            
             return userIdentity;
         }
     }

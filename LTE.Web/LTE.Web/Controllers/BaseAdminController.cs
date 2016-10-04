@@ -9,7 +9,6 @@ namespace LTE.Web.Controllers
 {
     public abstract partial class BaseAdminController : Controller
     {
-
         public virtual void SusscessNotification(string message)
         {
             AddNotification(NotifyType.Success, message);

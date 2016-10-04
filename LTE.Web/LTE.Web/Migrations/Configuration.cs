@@ -33,7 +33,8 @@ namespace LTE.Web.Migrations
             var user = userManager.FindByEmail(userName);
             if (user == null)
             {
-                user = new ApplicationUser() { UserName = userName, Email = userName };
+                user = new ApplicationUser() { UserName = userName, Email = userName, DateOfBirth = null };
+               
                 userManager.Create(user, password);
                 userManager.SetLockoutEnabled(user.Id, false);
             }

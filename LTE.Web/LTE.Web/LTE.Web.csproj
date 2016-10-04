@@ -194,9 +194,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Ioc\LTEIocContainer.cs" />
-    <Compile Include="Migrations\201609290434366_Init.cs" />
-    <Compile Include="Migrations\201609290434366_Init.Designer.cs">
-      <DependentUpon>201609290434366_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201610040927519_Initial.cs" />
+    <Compile Include="Migrations\201610040927519_Initial.Designer.cs">
+      <DependentUpon>201610040927519_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utilities\HtmlExtentions.cs" />
@@ -1187,6 +1187,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\credit\" />
+    <Folder Include="ViewModels\Shared\" />
     <Folder Include="Views\BaseAdmin\" />
   </ItemGroup>
   <ItemGroup>
@@ -1214,12 +1215,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609290434366_Init.resx">
-      <DependentUpon>201609290434366_Init.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Migrations\201610040927519_Initial.resx">
+      <DependentUpon>201610040927519_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

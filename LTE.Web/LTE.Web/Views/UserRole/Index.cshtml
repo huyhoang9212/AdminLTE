@@ -4,7 +4,7 @@
     ViewBag.Title = "User roles";
 }
 
-   <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
 <div class="content-header">
     <h1>
         @ViewBag.Title
@@ -52,7 +52,6 @@
                                 <td><span class="label label-success">@role.Users.Count</span></td>
                                 <td>
                                     <a href="@Url.Action("Edit", "UserRole", new { id = role.Id})">Edit</a> |
-                                    <a href="@Url.Action("Delete", "UserRole", new { id = role.Id})">Delete</a>
                                 </td>
                             </tr>
                             i++;

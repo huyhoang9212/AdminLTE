@@ -1,7 +1,70 @@
-﻿
+﻿@model IEnumerable<LTE.Web.ViewModels.Customer.CustomerViewModel>
 @{
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<div class="content-header">
+    <h1>
+        Customer
+        <small>Manage customer</small>
+    </h1>
+</div>
+
+<div class="content">
+    <div>
+        <a href="@Url.Action("Create","UserRole")" class="btn btn-primary">Add new role</a>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Manage Customers</h3>
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-bordered">
+                        <tr>
+                            <th width="10px">#</th>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th width="100px">Customer Roles</th>
+                            <th width="180px">Company Name</th>
+                            <th>Active</th>
+                            <th>Edit</th>
+                        </tr>
+                        @{ int i = 1;}
+                        @foreach (var customer in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@customer.Email</td>
+                                <td>@customer.FullName</td>
+                                <td><span class="label label-success">Registers, Customer, Guest</span></td>
+                                <td>@customer.Company</td>
+                                <td>@customer.Active</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "UserRole", new { id = customer.Id})">Edit</a> |
+                                </td>
+                            </tr>
+                            i++;
+                        }
+
+
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</div>
 

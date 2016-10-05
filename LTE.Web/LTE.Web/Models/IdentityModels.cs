@@ -18,6 +18,7 @@ namespace LTE.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
        
+        [Column(TypeName = "Date")]
         public DateTime? DateOfBirth { get; set; }
 
         public string Company { get; set; }

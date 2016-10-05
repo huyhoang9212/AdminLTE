@@ -4,9 +4,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using LTE.Web.Models;
-using LTE.Web.ViewModels.UserRoles;
+using LTE.Web.ViewModels.Customer;
 using System;
-using System.Collections;
 
 namespace LTE.Web.Controllers
 {

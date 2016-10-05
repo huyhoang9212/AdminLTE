@@ -3,7 +3,7 @@ namespace LTE.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class Initalize : DbMigration
     {
         public override void Up()
         {
@@ -42,8 +42,9 @@ namespace LTE.Web.Migrations
                         PostalCode = c.Int(nullable: false),
                         FirstName = c.String(),
                         LastName = c.String(),
-                        DateOfBirth = c.DateTime(),
+                        DateOfBirth = c.DateTime(storeType: "date"),
                         Company = c.String(),
+                        Gender = c.String(maxLength: 1, fixedLength: true, unicode: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),

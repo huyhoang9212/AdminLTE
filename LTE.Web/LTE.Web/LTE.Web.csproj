@@ -195,13 +195,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Ioc\LTEIocContainer.cs" />
-    <Compile Include="Migrations\201610040927519_Initial.cs" />
-    <Compile Include="Migrations\201610040927519_Initial.Designer.cs">
-      <DependentUpon>201610040927519_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610041411102_Gender.cs" />
-    <Compile Include="Migrations\201610041411102_Gender.Designer.cs">
-      <DependentUpon>201610041411102_Gender.cs</DependentUpon>
+    <Compile Include="Migrations\201610050722196_Initalize.cs" />
+    <Compile Include="Migrations\201610050722196_Initalize.Designer.cs">
+      <DependentUpon>201610050722196_Initalize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utilities\HtmlExtentions.cs" />
@@ -211,9 +207,10 @@
     <Compile Include="Provider\ApplicationOAuthProvider.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DeleteConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Home\IndexHomeViewModel.cs" />
-    <Compile Include="ViewModels\UserRoles\ApplicationRoleViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ApplicationRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\js\customValidation.js" />
@@ -1223,11 +1220,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610040927519_Initial.resx">
-      <DependentUpon>201610040927519_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610041411102_Gender.resx">
-      <DependentUpon>201610041411102_Gender.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610050722196_Initalize.resx">
+      <DependentUpon>201610050722196_Initalize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

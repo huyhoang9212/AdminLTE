@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace LTE.Web.ViewModels.UserRoles
+namespace LTE.Web.ViewModels.Customer
 {
     public class ApplicationRoleViewModel : BaseViewModel
     {

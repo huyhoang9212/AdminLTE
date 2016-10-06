@@ -16,6 +16,8 @@ namespace LTE.Web.ViewModels.Customer
             get { return string.Format("{0} {1}", FirstName, LastName); }
         }
 
+        public IEnumerable<string> Roles { get; set; }
+
         public DateTime? DateOfBirth { get; set; }
         public string Company { get; set; }
         public bool Active { get; set; }

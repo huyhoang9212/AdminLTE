@@ -5,7 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using LTE.Web.Models;
+using LTE.Web.ViewModels;
 
 namespace LTE.Web.Controllers
 {
@@ -28,35 +31,32 @@ namespace LTE.Web.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List()
+        public ActionResult List(int page = 1)
         {
-            //var customersVm = new List<CustomerViewModel>();
-            var customers = UserManger.Users.ToList();
+            int pageSize = 5;
+            int totalItems = UserManger.Users.Count();
+            int totalPage = (int)Math.Ceiling((double)UserManger.Users.Count() / pageSize);
+            page = page > totalPage ? totalPage : page;
+
+            var customers = UserManger.Users.OrderBy(c => c.Company)
+                                            .Skip((page - 1) * pageSize)
+                                            .Take(pageSize).ToList();
             var customersVm = customers.Select(PrepareCustomerViewModelForList);
-
-            //foreach(var customer in customers)
-            //{
-            //    var customerVm = new CustomerViewModel
-            //    {
-            //        Active = customer.LockoutEnabled,
-            //        Company = customer.Company,
-            //        DateOfBirth = customer.DateOfBirth,
-            //        Email = customer.Email,
-            //        FirstName = customer.FirstName,
-            //        Id = customer.Id,
-            //        LastName = customer.LastName
-            //    };
-
-            //    customersVm.Add(customerVm);
-            //}
-
-            return View(customersVm);
+            PageList<CustomerViewModel> pageList = new PageList<CustomerViewModel>()
+            {
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPage = totalPage,
+                CurrentPage = page,
+                Data = customersVm
+            };
+            return View(pageList);
         }
 
         [NonAction]
         protected virtual CustomerViewModel PrepareCustomerViewModelForList(ApplicationUser customer)
         {
-            return  new CustomerViewModel
+            var customerVm = new CustomerViewModel
             {
                 Active = customer.LockoutEnabled,
                 Company = customer.Company,
@@ -64,8 +64,11 @@ namespace LTE.Web.Controllers
                 Email = customer.Email,
                 FirstName = customer.FirstName,
                 Id = customer.Id,
-                LastName = customer.LastName
+                LastName = customer.LastName,
+                Roles = UserManger.GetRoles(customer.Id)
             };
+
+            return customerVm;
         }
     }
 }

@@ -31,6 +31,8 @@ namespace LTE.Web.Controllers
         {
             var roles = RoleManager.Roles.ToList();
             ViewBag.Description = "manage roles";
+            ApplicationUser user = new ApplicationUser();
+            
             return View(roles);
         }
 

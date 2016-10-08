@@ -48,6 +48,7 @@ namespace LTE.Web.Controllers
                 TotalItems = totalItems,
                 TotalPage = totalPage,
                 CurrentPage = page,
+                NumberOfPage = 5,
                 Data = customersVm
             };
             return View(pageList);

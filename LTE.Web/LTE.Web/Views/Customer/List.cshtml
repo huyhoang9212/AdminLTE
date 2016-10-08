@@ -58,7 +58,7 @@
                                 <td>@customer.Company</td>
                                 <td>@customer.Active</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "UserRole", new { id = customer.Id})">Edit</a> |
+                                    <a href="@Url.Action("Edit", "UserRole", new { id = customer.Id})">Edit</a>
                                 </td>
                             </tr>
                         }
@@ -68,31 +68,42 @@
                 </div>
                 <!-- /.box-body -->
             </div>
-
-            <div>Item @Html.Raw(Model.CurrentPage * Model.PageSize) of @Model.TotalItems</div>
+            <!-- Pagination -->
+            <div><span class="badge">@Model.FromItem</span> - <span class="badge">@Model.ToItem</span> of @Model.TotalItems items</div>
             <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    <li class="@Html.Raw(Model.CurrentPage == 1 ? "disabled" : "")">
-                        <a href="@Url.Action("List","Customer",new { page = (Model.CurrentPage == 1 ? 1 : Model.CurrentPage - 1 )})"
+                    <li class="previous"><a href="@Url.Action("List","Customer", new { page = 1})"><span aria-hidden="true">&larr;</span> First</a></li>
+                    <li class="@Html.Raw(Model.HasPreviousPage == false ? "disabled" : "")">
+                        <a href="@Url.Action("List","Customer",new { page = (Model.HasPreviousPage == false ? 1 : Model.CurrentPage - 1 )})"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
-                    </li>
+                    </li>                   
+                    @if (Model.CurrentRange > 1)
+                    {
+                        <li><a data-toggle="tooltip" data-placement="top" title="More pages" href="@Url.Action("List","Customer",new { page = Model.FromPage - 1})">...</a></li>
+                    }
 
-                    @for (int page = 1; page <= Model.TotalPage; page++)
+                    @for (int page = Model.FromPage; page <= Model.ToPage; page++)
                     {
                         string active = page == Model.CurrentPage ? "active" : "";
                         <li class="@active"><a href="@Url.Action("List","Customer",new { page = page})">@page</a></li>
                     }
-                    <li class="@Html.Raw(Model.CurrentPage == Model.TotalPage ? "disabled" : "")">
-                        <a href="@Url.Action("List","Customer",new { page = (Model.CurrentPage == Model.TotalPage ? Model.TotalPage : Model.CurrentPage + 1 )})"
+                    @if (Model.CurrentRange < Model.TotalRange)
+                    {
+                        <li class=""><a data-toggle="tooltip" data-placement="top" title="More pages" href="@Url.Action("List","Customer",new { page = Model.ToPage + 1})">...</a></li>
+                    }
+
+                    <li class="@Html.Raw(Model.HasNextPage == false ? "disabled" : "")">
+                        <a href="@Url.Action("List","Customer",new { page = (Model.HasNextPage == false ? Model.TotalPage : Model.CurrentPage + 1 )})"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
+                    <li class="next"><a href="@Url.Action("List","Customer", new { page = Model.TotalPage})">Last <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
-            <!-- /.box -->
+            <!-- /.Pagination -->
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 ﻿using LTE.Core;
 using LTE.Web.Models;
+using LTE.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -9,6 +10,8 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using LTE.Web.ViewModels.Customer;
 
 namespace LTE.Web
 {
@@ -38,7 +41,7 @@ namespace LTE.Web
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -79,22 +82,61 @@ namespace LTE.Web
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
 
-        public int CountAllUser()
+        public IPagedList<ApplicationUser> GetAllUsers(int page)
         {
-            return Users.Count();
+            int pagedSize = 5;
+            var pagedList = new PagedList<ApplicationUser>(this.Users.OrderBy(c => c.Company), page, pagedSize);
+            return pagedList;
+        }
+
+        public PageList<CustomerViewModel> GetUsers(int page)
+        {
+            var pageList = new PageList<CustomerViewModel>();
+            int totalItems = Users.Count();
+            int totalPage = (int)Math.Ceiling((double)totalItems / pageList.ItemPerPage);
+            page = page > totalPage ? totalPage : page;
+
+            var customers = Users.OrderBy(c => c.Company)
+                                            .Skip((page - 1) * pageList.ItemPerPage)
+                                            .Take(pageList.ItemPerPage).ToList();
+            var customersVm = customers.Select(PrepareCustomerViewModelForList);
+
+            pageList.TotalItems = totalItems;
+            pageList.TotalPage = totalPage;
+            pageList.CurrentPage = page;
+            pageList.Data = customersVm;
+
+            return pageList;
+        }
+
+        private CustomerViewModel PrepareCustomerViewModelForList(ApplicationUser customer)
+        {
+            var customerVm = new CustomerViewModel
+            {
+                Active = customer.LockoutEnabled,
+                Company = customer.Company,
+                DateOfBirth = customer.DateOfBirth,
+                Email = customer.Email,
+                FirstName = customer.FirstName,
+                Id = customer.Id,
+                LastName = customer.LastName,
+                Roles = this.GetRoles(customer.Id)
+            };
+
+            return customerVm;
         }
 
     }
 
     public class ApplicationRoleManager : RoleManager<ApplicationRole>
     {
-        public ApplicationRoleManager(IRoleStore<ApplicationRole, string> roleStore) 
+        public ApplicationRoleManager(IRoleStore<ApplicationRole, string> roleStore)
             : base(roleStore)
         {
         }
@@ -106,7 +148,7 @@ namespace LTE.Web
 
         public IdentityResult DeleteRole(ApplicationRole role)
         {
-            if(role == null)
+            if (role == null)
             {
                 throw new ArgumentNullException("role");
             }
@@ -115,7 +157,7 @@ namespace LTE.Web
             {
                 throw new LTException("System role could not be deleted.");
             }
-            
+
             IdentityResult result = this.Delete(role);
             return result;
         }

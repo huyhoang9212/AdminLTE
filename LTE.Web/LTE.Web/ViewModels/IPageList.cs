@@ -5,18 +5,24 @@ using System.Web;
 
 namespace LTE.Web.ViewModels
 {
-    public class PageList<T> where T : BaseViewModel
+    public class PageList<T> : List<T>
     {
+        public PageList()
+        {
+            CurrentPage = 1;
+            ItemPerPage = 5;
+            NumberOfPage = 5;
+        }
+        public int ItemPerPage { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPage { get; set; }
-        public int NumberOfPage { get; set; }
-
-        public int PageSize { get; set; }
-        public IEnumerable<T> Data { get; set; }
         public int TotalItems { get; set; }
 
 
-
+        public int NumberOfPage { get; set; }
+    
+        public IEnumerable<T> Data { get; set; }
+      
 
         public int TotalRange
         {
@@ -41,6 +47,7 @@ namespace LTE.Web.ViewModels
                 return (NumberOfPage * (CurrentRange - 1)) + 1;
             }
         }
+
         public int ToPage
         {
             get
@@ -51,11 +58,11 @@ namespace LTE.Web.ViewModels
 
         public int FromItem
         {
-            get { return ((CurrentPage - 1) * PageSize + 1); }
+            get { return ((CurrentPage - 1) * ItemPerPage + 1); }
         }
         public int ToItem
         {
-            get { return CurrentPage * PageSize >= TotalItems ? TotalItems : CurrentPage * PageSize; }
+            get { return CurrentPage * ItemPerPage >= TotalItems ? TotalItems : CurrentPage * ItemPerPage; }
         }
 
         public bool HasPreviousPage
@@ -64,6 +71,8 @@ namespace LTE.Web.ViewModels
         }
 
         public bool HasNextPage
-        { get { return CurrentPage < TotalPage; } }
+        {
+            get { return CurrentPage < TotalPage; }
+        }
     }
 }

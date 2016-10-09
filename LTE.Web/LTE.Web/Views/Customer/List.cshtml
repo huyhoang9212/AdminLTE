@@ -1,7 +1,9 @@
 ﻿@using LTE.Web.ViewModels.Customer
-@model LTE.Web.ViewModels.PageList<CustomerViewModel>
+@using LTE.Web.Models
+@model LTE.Core.IPagedList<CustomerViewModel> 
 @{
     ViewBag.Title = "List";
+    IEnumerable<CustomerViewModel> customers = ViewBag.Data as IEnumerable<CustomerViewModel>;
 }
 
 <div class="content-header">
@@ -41,7 +43,7 @@
                             <th>Active</th>
                             <th>Edit</th>
                         </tr>
-                        @foreach (var customer in Model.Data)
+                        @foreach (var customer in Model)
                         {
                             <tr>
                                 <td>@customer.Email</td>
@@ -95,12 +97,12 @@
                     }
 
                     <li class="@Html.Raw(Model.HasNextPage == false ? "disabled" : "")">
-                        <a href="@Url.Action("List","Customer",new { page = (Model.HasNextPage == false ? Model.TotalPage : Model.CurrentPage + 1 )})"
+                        <a href="@Url.Action("List","Customer",new { page = (Model.HasNextPage == false ? Model.TotalPages : Model.CurrentPage + 1 )})"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                    <li class="next"><a href="@Url.Action("List","Customer", new { page = Model.TotalPage})">Last <span aria-hidden="true">&rarr;</span></a></li>
+                    <li class="next"><a href="@Url.Action("List","Customer", new { page = Model.TotalPages})">Last <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
             <!-- /.Pagination -->

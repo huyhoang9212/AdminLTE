@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LTE.Web.Models;
 using LTE.Web.ViewModels;
+using LTE.Core;
 
 namespace LTE.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace LTE.Web.Controllers
     {
         private ApplicationUserManager _userManager;
 
-        public ApplicationUserManager UserManger
+        public ApplicationUserManager UserManager
         {
             get
             {
@@ -33,29 +34,18 @@ namespace LTE.Web.Controllers
 
         public ActionResult List(int page = 1)
         {
-            int pageSize = 5;
-            int totalItems = UserManger.Users.Count();
-            int totalPage = (int)Math.Ceiling((double)UserManger.Users.Count() / pageSize);
-            page = page > totalPage ? totalPage : page;
+            int pagedSize = 5;
+            //var pageList = UserManager.GetUsers(page);
+            var customers = UserManager.GetAllUsers(page);
+            var customerVms = customers.Select(PrepareCustomerViewModelForList);
+            var pagedList = new PagedList<CustomerViewModel>(customerVms, page, pagedSize, customers.TotalItems);
 
-            var customers = UserManger.Users.OrderBy(c => c.Company)
-                                            .Skip((page - 1) * pageSize)
-                                            .Take(pageSize).ToList();
-            var customersVm = customers.Select(PrepareCustomerViewModelForList);
-            PageList<CustomerViewModel> pageList = new PageList<CustomerViewModel>()
-            {
-                PageSize = pageSize,
-                TotalItems = totalItems,
-                TotalPage = totalPage,
-                CurrentPage = page,
-                NumberOfPage = 5,
-                Data = customersVm
-            };
-            return View(pageList);
+            //ViewBag.Data = pagedList.Select(PrepareCustomerViewModelForList);
+            return View(pagedList);
         }
 
         [NonAction]
-        protected virtual CustomerViewModel PrepareCustomerViewModelForList(ApplicationUser customer)
+        protected CustomerViewModel PrepareCustomerViewModelForList(ApplicationUser customer)
         {
             var customerVm = new CustomerViewModel
             {
@@ -66,7 +56,7 @@ namespace LTE.Web.Controllers
                 FirstName = customer.FirstName,
                 Id = customer.Id,
                 LastName = customer.LastName,
-                Roles = UserManger.GetRoles(customer.Id)
+                Roles = UserManager.GetRoles(customer.Id)
             };
 
             return customerVm;

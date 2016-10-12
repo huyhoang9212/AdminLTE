@@ -95,25 +95,6 @@ namespace LTE.Web
             return pagedList;
         }
 
-        public PageList<CustomerViewModel> GetUsers(int page)
-        {
-            var pageList = new PageList<CustomerViewModel>();
-            int totalItems = Users.Count();
-            int totalPage = (int)Math.Ceiling((double)totalItems / pageList.ItemPerPage);
-            page = page > totalPage ? totalPage : page;
-
-            var customers = Users.OrderBy(c => c.Company)
-                                            .Skip((page - 1) * pageList.ItemPerPage)
-                                            .Take(pageList.ItemPerPage).ToList();
-            var customersVm = customers.Select(PrepareCustomerViewModelForList);
-
-            pageList.TotalItems = totalItems;
-            pageList.TotalPage = totalPage;
-            pageList.CurrentPage = page;
-            pageList.Data = customersVm;
-
-            return pageList;
-        }
 
         private CustomerViewModel PrepareCustomerViewModelForList(ApplicationUser customer)
         {

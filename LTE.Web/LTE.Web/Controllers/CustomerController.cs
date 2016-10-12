@@ -16,6 +16,7 @@ namespace LTE.Web.Controllers
     public class CustomerController : BaseAdminController
     {
         private ApplicationUserManager _userManager;
+        private readonly int _pagedSize = 5;
 
         public ApplicationUserManager UserManager
         {
@@ -34,14 +35,15 @@ namespace LTE.Web.Controllers
 
         public ActionResult List(int page = 1)
         {
-            int pagedSize = 5;
-            //var pageList = UserManager.GetUsers(page);
+            var viewModel = new CustomerListModel();
+
             var customers = UserManager.GetAllUsers(page);
             var customerVms = customers.Select(PrepareCustomerViewModelForList);
-            var pagedList = new PagedList<CustomerViewModel>(customerVms, page, pagedSize, customers.TotalItems);
+            var pagedList = new PagedList<CustomerViewModel>(customerVms, page, _pagedSize, customers.TotalItems);
 
-            //ViewBag.Data = pagedList.Select(PrepareCustomerViewModelForList);
-            return View(pagedList);
+            viewModel.Customers = pagedList;
+
+            return View(viewModel);
         }
 
         [NonAction]

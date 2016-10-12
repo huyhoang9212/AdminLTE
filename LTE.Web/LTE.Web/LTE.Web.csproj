@@ -207,8 +207,8 @@
     <Compile Include="Provider\ApplicationOAuthProvider.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerListModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerViewModel.cs" />
-    <Compile Include="ViewModels\IPageList.cs" />
     <Compile Include="ViewModels\Shared\DeleteConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Home\IndexHomeViewModel.cs" />
     <Compile Include="ViewModels\Customer\ApplicationRoleViewModel.cs" />

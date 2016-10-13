@@ -30,7 +30,13 @@ namespace LTE.Web.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            var searchViewModel = new CustomerSearchViewModel();
+            return View(searchViewModel);
+        }
+
+        public PartialViewResult CustomerList()
+        {
+            return PartialView("_CustomerTablePartial");
         }
 
         public ActionResult List(int page = 1)

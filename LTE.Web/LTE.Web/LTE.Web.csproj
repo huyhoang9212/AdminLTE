@@ -208,6 +208,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerListModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerSearchViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerViewModel.cs" />
     <Compile Include="ViewModels\Shared\DeleteConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Home\IndexHomeViewModel.cs" />
@@ -215,6 +216,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\js\customValidation.js" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap-theme.css" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.css" />
@@ -285,18 +295,8 @@
     <Content Include="Scripts\plugins\bootstrap\bootstrap.css.map" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap-theme.min.css.map" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap-theme.css.map" />
-    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.js" />
     <Content Include="Scripts\plugins\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\slider.css" />
@@ -1028,8 +1028,10 @@
     <Content Include="Scripts\plugins\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Scripts\plugins\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\plugins\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\jquery-3.1.0.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <None Include="Scripts\plugins\jQuery\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\plugins\jQuery\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\plugins\jQuery\jquery-3.1.0.min.js" />
     <Content Include="Scripts\plugins\jQuery\jquery-3.1.0.slim.js" />
     <Content Include="Scripts\plugins\jQuery\jquery-3.1.0.slim.min.js" />
@@ -1115,7 +1117,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1187,6 +1189,8 @@
     <Content Include="Views\Shared\_DeleteConfirmation.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Customer\List.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\_CustomerTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1195,8 +1199,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LTE.Core\LTE.Core.csproj">

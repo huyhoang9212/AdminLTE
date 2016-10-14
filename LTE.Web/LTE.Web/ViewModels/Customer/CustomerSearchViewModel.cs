@@ -5,6 +5,11 @@ namespace LTE.Web.ViewModels.Customer
 {
     public class CustomerSearchViewModel
     {
+        public CustomerSearchViewModel()
+        {
+            
+        }
+
         [Display(Name = "Email")]
         public string SearchEmail { get; set; }
 
@@ -30,6 +35,5 @@ namespace LTE.Web.ViewModels.Customer
         [Display(Name = "Customer roles")]
 
         public IList<string> SearchCustomerRoles { get; set; }
-        public int MyProperty { get; set; }
     }
 }

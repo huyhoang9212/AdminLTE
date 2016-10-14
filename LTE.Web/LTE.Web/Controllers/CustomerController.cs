@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using LTE.Web.Models;
 using LTE.Web.ViewModels;
 using LTE.Core;
+using System.IO;
 
 namespace LTE.Web.Controllers
 {
@@ -34,20 +35,26 @@ namespace LTE.Web.Controllers
             return View(searchViewModel);
         }
 
-        public PartialViewResult CustomerList()
+        public PartialViewResult CustomerList(CustomerSearchViewModel searchViewModel, int page)
         {
-            return PartialView("_CustomerTablePartial");
+            var customers = UserManager.GetAllUsers(page, _pagedSize, searchViewModel.SearchEmail, 
+                searchViewModel.SearchFristName, 
+                searchViewModel.SearchLastName);
+            var customersVm = customers.Select(PrepareCustomerViewModelForList);
+            PagedList<CustomerViewModel> pagedListCustomers = new PagedList<CustomerViewModel>(customersVm, page, _pagedSize, customers.TotalItems);
+                
+            return PartialView("_CustomerTablePartial", pagedListCustomers);
         }
 
         public ActionResult List(int page = 1)
         {
             var viewModel = new CustomerListModel();
 
-            var customers = UserManager.GetAllUsers(page);
-            var customerVms = customers.Select(PrepareCustomerViewModelForList);
-            var pagedList = new PagedList<CustomerViewModel>(customerVms, page, _pagedSize, customers.TotalItems);
+            //var customers = UserManager.GetAllUsers(page,"","","");
+            //var customerVms = customers.Select(PrepareCustomerViewModelForList);
+            //var pagedList = new PagedList<CustomerViewModel>(customerVms, page, _pagedSize, customers.TotalItems);
 
-            viewModel.Customers = pagedList;
+            //viewModel.Customers = pagedList;
 
             return View(viewModel);
         }

@@ -217,6 +217,8 @@
   <ItemGroup>
     <Content Include="Content\js\customValidation.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Content\js\lte.js" />
+    <Content Include="Content\js\pages\customer\customer.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.js" />

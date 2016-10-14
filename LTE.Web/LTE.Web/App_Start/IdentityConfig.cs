@@ -88,13 +88,30 @@ namespace LTE.Web
             return manager;
         }
 
-        public IPagedList<ApplicationUser> GetAllUsers(int page)
+        public IPagedList<ApplicationUser> GetAllUsers(int page, int pagedSize, string mail, string firstName, string lastName)
         {
-            int pagedSize = 5;
-            var pagedList = new PagedList<ApplicationUser>(this.Users.OrderBy(c => c.Company), page, pagedSize);
+            var customers = from c in Users
+                            select c;
+
+            if(!string.IsNullOrEmpty(mail))
+            {
+                customers = customers.Where(c => c.Email.Contains(mail));
+            }
+
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                customers = customers.Where(c => c.FirstName.Contains(firstName));
+            }
+
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                customers = customers.Where(c => c.LastName.Contains(lastName));
+            }
+
+            customers = customers.OrderBy(c => c.Company);
+            var pagedList = new PagedList<ApplicationUser>(customers, page, pagedSize);
             return pagedList;
         }
-
 
         private CustomerViewModel PrepareCustomerViewModelForList(ApplicationUser customer)
         {

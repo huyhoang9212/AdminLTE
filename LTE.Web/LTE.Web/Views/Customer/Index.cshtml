@@ -12,13 +12,14 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="searchForm">
                     <div class="box-body">
                         <div class="col-md-5">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.SearchEmail, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(m => m.SearchEmail, new { @class = "form-control" })
+                                    @*@Html.ValidationMessageFor(m=>m.SearchEmail)*@
                                 </div>
                             </div>
                             <div class="form-group">
@@ -53,7 +54,7 @@
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <div class="col-md-2 col-md-offset-5">
-                            <button class="btn btn-primary btn-lg btn-block" id="btnSearch" type="button">Search</button>
+                            <button class="btn btn-primary btn-lg btn-block" id="btnSearch" type="submit">Search</button>
                         </div>
                     </div>
                     <!-- /.box-footer -->
@@ -62,26 +63,48 @@
         </div>
     </div>
 
-    <div class="row">
-        @Html.Action("CustomerList")
+    <div class="row" id="customers-grid">
+
+    </div>
+
+    <div id="loading-ajax">
+
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#exportexcel-selected').click(function (e) {
-            e.preventDefault();
-            var ids = selectedIds.join(",");
-            $('#export-excel-selected-form #selectedIds').val(ids);
-            $('#export-excel-selected-form').submit();
-            return false;
-        });
-    });
-
-
-</script>
-
 
 <script>
+    $(document).ready(function () {
+        $("".concat("#SearchEmail,", "#SearchFristName,", "#SearchLastName")).keydown(function (event) {
+            if (event.keyCode === 13) {
+                GetCustomerList(1);
+            }
+        });
 
+        $(document).ajaxStart(function () {
+            //alert("...on loading");
+        });
+
+        $("#searchForm").submit(function (event) {
+            GetCustomerList(1);
+            event.preventDefault();
+        });
+
+        function GetCustomerList(page) {
+            var searchData = $("#searchForm").serializeObject();
+            searchData.Page = page;
+            console.log(searchData);
+            $.ajax({
+                type: "POST",
+                url: lte.Urls.GetCustomerListUrl,
+                data: searchData,
+                dataType: "html",
+                success: function (response) {
+                    $("#customers-grid").html(response);
+                }
+            });
+        }
+    });
 </script>
+
+

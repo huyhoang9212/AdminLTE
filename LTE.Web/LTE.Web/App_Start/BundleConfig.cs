@@ -21,9 +21,9 @@ namespace LTE.Web
             //          "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                "~/Scripts/plugins/bootstrap/bootstrap.min.js",
                 "~/Scripts/jquery-{version}.js",
-                "~/Content/js/app.min.js",
+                "~/Scripts/plugins/bootstrap/bootstrap.min.js",
+                "~/Content/js/app.js",
                 "~/Content/js/demo.js",
                 "~/Scripts/respond.js"
             ));

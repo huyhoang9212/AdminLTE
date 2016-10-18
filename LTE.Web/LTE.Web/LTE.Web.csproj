@@ -215,6 +215,7 @@
     <Compile Include="ViewModels\Customer\ApplicationRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\ajax-loader.gif" />
     <Content Include="Content\js\customValidation.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Content\js\lte.js" />
@@ -1219,9 +1220,6 @@
       <Project>{968faf61-9a86-4093-a2cc-eb67bfca3695}</Project>
       <Name>LTE.Web.Framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610050722196_Initalize.resx">

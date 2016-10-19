@@ -46,9 +46,11 @@ namespace LTE.Web
             // CSS
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Scripts/plugins/bootstrap/bootstrap.min.css",
-                    "~/Content/css/AdminLTE.min.css",
+                  
                     "~/Content/Site.css",
-                    "~/Scripts/plugins/iCheck/square/blue.css"
+                    "~/Scripts/plugins/iCheck/square/blue.css",
+                     "~/Scripts/plugins/select2/select2.min.css",
+                       "~/Content/css/AdminLTE.css"
             ));
 
             // Skin css

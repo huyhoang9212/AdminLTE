@@ -1,5 +1,4 @@
 ﻿
-
 $(document).ready(function () {
     //$(document).ajaxStart(function (event) {
     //    $("#ajax-loading").show();

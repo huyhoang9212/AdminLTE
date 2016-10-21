@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace LTE.Web.ViewModels.Customer
 {
@@ -7,7 +8,7 @@ namespace LTE.Web.ViewModels.Customer
     {
         public CustomerSearchViewModel()
         {
-            
+            AvailabelCustomerRoles = new List<SelectListItem>();
         }
 
         [Display(Name = "Email")]
@@ -34,6 +35,8 @@ namespace LTE.Web.ViewModels.Customer
 
         [Display(Name = "Customer roles")]
 
-        public IList<string> SearchCustomerRoles { get; set; }
+        public IEnumerable<string> SearchCustomerRoles { get; set; }
+
+        public IList<SelectListItem> AvailabelCustomerRoles { get; set; }
     }
 }

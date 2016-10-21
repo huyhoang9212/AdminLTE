@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using LTE.Web.ViewModels.Customer;
+using System.Web.Mvc;
 
 namespace LTE.Web
 {
@@ -88,10 +89,12 @@ namespace LTE.Web
             return manager;
         }
 
-        public IPagedList<ApplicationUser> GetAllUsers(int page, int pagedSize, string mail, string firstName, string lastName)
+        public IPagedList<ApplicationUser> GetAllUsers(int page, int pagedSize, string mail, string firstName, string lastName,
+            IEnumerable<string> roleIds)
         {
             var customers = from c in Users
-                            select c;
+                            select c
+                            ;
 
             if(!string.IsNullOrEmpty(mail))
             {
@@ -107,6 +110,12 @@ namespace LTE.Web
             {
                 customers = customers.Where(c => c.LastName.Contains(lastName));
             }
+
+            if(roleIds != null && roleIds.Any())
+            {
+                customers = customers.Where(c => c.Roles.Select(cr=>cr.RoleId).Intersect(roleIds).Any());
+            }
+            
 
             customers = customers.OrderBy(c => c.Company);
             var pagedList = new PagedList<ApplicationUser>(customers, page, pagedSize);
@@ -159,6 +168,28 @@ namespace LTE.Web
             IdentityResult result = this.Delete(role);
             return result;
         }
+
+        public IEnumerable<string> GetRoles()
+        {
+            return Roles.OrderBy(c=>c.Name).Select(c => c.Name).AsEnumerable();
+        }
+
+        public IList<SelectListItem> SelectListRoles()
+        {
+            var selectListRoles = new List<SelectListItem>();
+            var roles = Roles.ToList();
+            foreach (var role in roles)
+            {
+                selectListRoles.Add(new SelectListItem
+                {
+                    Text = role.Name,
+                    Value = role.Id
+                });
+            }
+
+            return selectListRoles;
+        }
+           
     }
 
     // Configure the application sign-in manager which is used in this application.

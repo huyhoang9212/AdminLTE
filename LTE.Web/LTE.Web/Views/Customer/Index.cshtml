@@ -45,10 +45,18 @@
                                     @Html.TextBoxFor(m => m.SearchCompany, new { @class = "form-control" })
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 @Html.LabelFor(m => m.SearchCustomerRoles, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(m => m.SearchCustomerRoles, new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.SearchCustomerRoles, Model.AvailabelCustomerRoles,
+                                   new { @class = "form-control select2", @multiple = "multiple" })
+                                    @*<select class="form-control select2 col-md-8" multiple="multiple" data-placeholder="Select a Role">
+                                @foreach (var role in Model.SearchCustomerRoles)
+                                {
+                                    <option>@role</option>
+                                }
+                            </select>*@
                                 </div>
                             </div>
 
@@ -65,7 +73,7 @@
                                         <option>Washington</option>
                                     </select>
                                 </div>
-                             
+
                             </div>
 
                         </div>
@@ -84,7 +92,7 @@
     </div>
 
     <div id="customers-grid">
-        
+
     </div>
 
     <div id="ajax-loading" class="ajax-loading">

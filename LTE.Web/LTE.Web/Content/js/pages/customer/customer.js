@@ -56,7 +56,7 @@ function ShowAjaxLoading(overlayId, idOfDivToOverlay) {
     });
 
     $("#" + overlayId).show();
-    $("#" + overlayId).animate({ opacity: 0.5 }, 1);
+    $("#" + overlayId).animate({ opacity: 0.3 }, 1);
 }
 
 function HideAjaxLoading(overlayId) {

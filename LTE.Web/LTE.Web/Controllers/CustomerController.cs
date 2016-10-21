@@ -17,6 +17,8 @@ namespace LTE.Web.Controllers
     public class CustomerController : BaseAdminController
     {
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+
         private readonly int _pagedSize = 5;
 
         public ApplicationUserManager UserManager
@@ -28,21 +30,47 @@ namespace LTE.Web.Controllers
             private set { _userManager = value; }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set { _roleManager = value; }
+        }
+
         // GET: Customer
         public ActionResult Index()
         {
             var searchViewModel = new CustomerSearchViewModel();
+            PrepareCustomerRolesModel(searchViewModel);
+
             return View(searchViewModel);
+        }
+
+        [NonAction]
+        protected virtual void PrepareCustomerRolesModel(CustomerSearchViewModel model)
+        {
+            var roles =RoleManager.Roles.ToList();
+            foreach (var role in roles)
+            {
+                model.AvailabelCustomerRoles.Add(new SelectListItem
+                {
+                    Text = role.Name,
+                    Value = role.Id
+                });
+            }
         }
 
         public PartialViewResult CustomerList(CustomerSearchViewModel searchViewModel, int page)
         {
-            var customers = UserManager.GetAllUsers(page, _pagedSize, searchViewModel.SearchEmail, 
-                searchViewModel.SearchFristName, 
-                searchViewModel.SearchLastName);
+            var customers = UserManager.GetAllUsers(page, _pagedSize, searchViewModel.SearchEmail,
+                searchViewModel.SearchFristName,
+                searchViewModel.SearchLastName,
+                searchViewModel.SearchCustomerRoles);
             var customersVm = customers.Select(PrepareCustomerViewModelForList);
             PagedList<CustomerViewModel> pagedListCustomers = new PagedList<CustomerViewModel>(customersVm, page, _pagedSize, customers.TotalItems);
-                
+
             return PartialView("_CustomerTablePartial", pagedListCustomers);
         }
 

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using LTE.Web.Models;
 using LTE.Web.ViewModels;
 using LTE.Core;
+using System.Collections;
 
 namespace LTE.Web.Controllers
 {
@@ -34,6 +35,16 @@ namespace LTE.Web.Controllers
 
         public ActionResult List(int page = 1)
         {
+            IEnumerable ien;
+            IEnumerable<ApplicationUser> ieng;
+            ICollection ic;
+            ICollection<ApplicationUser> icg;
+            IList il;
+            IList<ApplicationUser> ilg;
+            List<ApplicationUser> d;
+            Array arr;
+            ArrayList arrl;           
+
             int pagedSize = 5;
             //var pageList = UserManager.GetUsers(page);
             var customers = UserManager.GetAllUsers(page);

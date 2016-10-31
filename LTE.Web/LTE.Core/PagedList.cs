@@ -23,6 +23,10 @@ namespace LTE.Core
 
         public PagedList(IEnumerable<T> list, int currentPage, int pageSize, int totalItems)
         {
+            
+            
+            
+                        
             TotalItems = totalItems;
             TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
             CurrentPage = currentPage;

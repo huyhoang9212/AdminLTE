@@ -7,9 +7,18 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 425px;
 }
 
 .alert{
     margin-bottom: 0px;
+}
+
+.ajax-loading{
+    background: #ccc url("../Content/img/ajax-loader.gif") 50% 50% no-repeat;
+    display: none;
+    position: absolute;
+    text-align: center;
+    z-index: 1000;
+    border: 1px dashed #CCC;
 }

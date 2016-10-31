@@ -35,7 +35,6 @@ namespace LTE.Core
             NumberPagesPerRange = 5;
         }
 
-
         public int CurrentPage
         {
             get; private set;
@@ -103,7 +102,7 @@ namespace LTE.Core
 
         public int FromItem
         {
-            get { return ((CurrentPage - 1) * PageSize + 1); }
+            get { return ((CurrentPage - 1) * PageSize + 1) > TotalItems ? 0 : ((CurrentPage - 1) * PageSize + 1); }
         }
         public int ToItem
         {

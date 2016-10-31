@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using LTE.Web.Models;
 using LTE.Web.ViewModels;
 using LTE.Core;
+using System.IO;
 using System.Collections;
 
 namespace LTE.Web.Controllers
@@ -17,6 +18,9 @@ namespace LTE.Web.Controllers
     public class CustomerController : BaseAdminController
     {
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+
+        private readonly int _pagedSize = 5;
 
         public ApplicationUserManager UserManager
         {
@@ -27,32 +31,61 @@ namespace LTE.Web.Controllers
             private set { _userManager = value; }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set { _roleManager = value; }
+        }
+
         // GET: Customer
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            var searchViewModel = new CustomerSearchViewModel();
+            PrepareCustomerRolesModel(searchViewModel);
+
+            return View(searchViewModel);
+        }
+
+        [NonAction]
+        protected virtual void PrepareCustomerRolesModel(CustomerSearchViewModel model)
+        {
+            var roles =RoleManager.Roles.ToList();
+            foreach (var role in roles)
+            {
+                model.AvailabelCustomerRoles.Add(new SelectListItem
+                {
+                    Text = role.Name,
+                    Value = role.Id
+                });
+            }
+        }
+
+        public PartialViewResult CustomerList(CustomerSearchViewModel searchViewModel, int page)
+        {
+            var customers = UserManager.GetAllUsers(page, _pagedSize, searchViewModel.SearchEmail,
+                searchViewModel.SearchFristName,
+                searchViewModel.SearchLastName,
+                searchViewModel.SearchCustomerRoles);
+            var customersVm = customers.Select(PrepareCustomerViewModelForList);
+            PagedList<CustomerViewModel> pagedListCustomers = new PagedList<CustomerViewModel>(customersVm, page, _pagedSize, customers.TotalItems);
+
+            return PartialView("_CustomerTablePartial", pagedListCustomers);
         }
 
         public ActionResult List(int page = 1)
         {
-            IEnumerable ien;
-            IEnumerable<ApplicationUser> ieng;
-            ICollection ic;
-            ICollection<ApplicationUser> icg;
-            IList il;
-            IList<ApplicationUser> ilg;
-            List<ApplicationUser> d;
-            Array arr;
-            ArrayList arrl;           
+            var viewModel = new CustomerListModel();
 
-            int pagedSize = 5;
-            //var pageList = UserManager.GetUsers(page);
-            var customers = UserManager.GetAllUsers(page);
-            var customerVms = customers.Select(PrepareCustomerViewModelForList);
-            var pagedList = new PagedList<CustomerViewModel>(customerVms, page, pagedSize, customers.TotalItems);
+            //var customers = UserManager.GetAllUsers(page,"","","");
+            //var customerVms = customers.Select(PrepareCustomerViewModelForList);
+            //var pagedList = new PagedList<CustomerViewModel>(customerVms, page, _pagedSize, customers.TotalItems);
 
-            //ViewBag.Data = pagedList.Select(PrepareCustomerViewModelForList);
-            return View(pagedList);
+            //viewModel.Customers = pagedList;
+
+            return View(viewModel);
         }
 
         [NonAction]

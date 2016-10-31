@@ -8,9 +8,6 @@ namespace LTE.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-            //            "~/Scripts/plugins/jquery/jquery-{version}.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -24,9 +21,9 @@ namespace LTE.Web
             //          "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Scripts/jquery-{version}.js",
                 "~/Scripts/plugins/bootstrap/bootstrap.min.js",
-                "~/Scripts/plugins/jquery/jquery-{version}.js",
-                "~/Content/js/app.min.js",
+                "~/Content/js/app.js",
                 "~/Content/js/demo.js",
                 "~/Scripts/respond.js"
             ));
@@ -49,9 +46,11 @@ namespace LTE.Web
             // CSS
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Scripts/plugins/bootstrap/bootstrap.min.css",
-                    "~/Content/css/AdminLTE.min.css",
+                  
                     "~/Content/Site.css",
-                    "~/Scripts/plugins/iCheck/square/blue.css"
+                    "~/Scripts/plugins/iCheck/square/blue.css",
+                     "~/Scripts/plugins/select2/select2.min.css",
+                       "~/Content/css/AdminLTE.css"
             ));
 
             // Skin css

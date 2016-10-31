@@ -37,7 +37,7 @@ namespace LTE.Web.Controllers
             private set { _roleManager = value; }
         }
         
-        public HomeController( ICategoryService service, IUnitOfWork unitOfWork)
+        public HomeController(ICategoryService service, IUnitOfWork unitOfWork)
         {          
             _categoryService = service;
             _unitOfWork = unitOfWork;
